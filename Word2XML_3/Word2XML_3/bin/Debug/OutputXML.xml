@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<ArrayOfField xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Field FieldID="Name" FieldValue="John Smith" />
+  <Field FieldID="Blood Type" FieldValue="O negative" />
+  <Field FieldID="Blood Pressure" FieldValue="120/70" />
+  <Field FieldID="Heart Rate" FieldValue="70" />
+  <Field FieldID="Temperature" FieldValue="98.2 degrees Fahrenheit" />
+</ArrayOfField>
