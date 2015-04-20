@@ -58,13 +58,33 @@ namespace Word2XML_3
         private static void extractWordFile(List<Field> list, string file)
         {
             string text = wordDocument2String(file);
-            string[] lines = text.Split(';');
+            string[] lines = text.Split('\r');
             for (int i = 0; i < lines.Length - 1; i++)
             {
-                string[] fieldArray = lines[i].Split('=');
+                char[] delimiters = { ':', '?','\v' };
+                string[] fieldArray = lines[i].Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
                 cleanUpWhitespaceAndDelimiters(fieldArray);
-                Field field = new Field(fieldArray[0], fieldArray[1]);
-                list.Add(field);
+                switch (fieldArray[0])
+                {
+                    case "Best Pizza Toppings":
+                        Field f1 = new Field("Best Pizza Toppings", fieldArray[2]);
+                        list.Add(f1);
+                        break;
+                    case "What is your dream job and why":
+                        Field f2 = new Field("Dream Job", fieldArray[2]);
+                        list.Add(f2);
+                        break;
+                    case "Favorite Primary Color and Why":
+                        Field f3 = new Field("Favorite Primary Color",fieldArray[1]);
+                        break;
+                    case "What type of vehicle do you drive":
+                        Field f4 = new Field("Vehicle", fieldArray[1]);
+                        break;
+                    default:
+                        Field f5 = new Field(fieldArray[0], fieldArray[1]);
+                        list.Add(f5);
+                        break;
+                }
             }
 
         }
