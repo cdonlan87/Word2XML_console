@@ -5,97 +5,96 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Serialization;
+using Microsoft.Office.Interop;
 using NetOffice.WordApi;
 
 namespace Word2XML_3
 {
     [XmlType("Field")]
-    public class Field
+    public class CustomField
     {
         [XmlAttribute("FieldID")]
         public string FieldID;
         [XmlAttribute("FieldValue")]
         public string FieldValue;
-        public Field() { }
-        public Field(string fieldID, string fieldValue)
+        public CustomField() { }
+        public CustomField(string fieldID, string fieldValue)
         {
             this.FieldID = fieldID;
             this.FieldValue = fieldValue;
         }
     }
-    public static class FieldSerializer
+    [XmlType("Entry")]
+    public class CustomEntry
     {
-        public static void SerializeObject(this List<Field> fields, string file)
+        [XmlAttribute("Author")]
+        public string Author;
+        [XmlAttribute("Title")]
+        public string Title;
+        [XmlAttribute("Trial")]
+        public string Trial;
+        [XmlAttribute("Responses")]
+        public List<CustomField> Responses;
+        public CustomEntry() { }
+        public CustomEntry(string file)
         {
-            var serializer = new XmlSerializer(typeof(List<Field>));
-            using (var stream = File.OpenWrite(file))
-            {
-                serializer.Serialize(stream, fields);
-            }
+            Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
+            Microsoft.Office.Interop.Word.Document doc = word.Documents.Open(file);
+            this.Author = getWordDocumentPropertyValue(doc, "Author");
+            this.Title = getWordDocumentPropertyValue(doc, "Title");
+            this.Trial = getWordDocumentPropertyValue(doc, "Subject");
+            this.Responses = ExtractResponses(doc.Content.Text);
+            word.Quit();
         }
-    }
-    class Program
-    {
-        private static void outputXMLFile(List<Field> list, string file)
+        public CustomEntry(string author, string title, string trial, List<CustomField> responses)
         {
-            FieldSerializer.SerializeObject(list, file);
+            this.Author = author;
+            this.Title = title;
+            this.Trial = trial;
+            this.Responses = responses;
         }
-        private static void extractTextFile(List<Field> list, string file)
+        private static List<CustomField> ExtractResponses(string text)
         {
-            using (FileStream s = File.OpenRead(file))
-            using (TextReader reader = new StreamReader(s))
-            {
-                while (reader.Peek() > -1)
-                {
-                    string line = reader.ReadLine();
-                    string[] fieldArray = line.Split('=');
-                    cleanUpWhitespaceAndDelimiters(fieldArray);
-                    Field field = new Field(fieldArray[0], fieldArray[1]);
-                    list.Add(field);
-                }
-            }
-        }
-        private static void extractWordFile(List<Field> list, string file)
-        {
-            string text = wordDocument2String(file);
+            List<CustomField> list = new List<CustomField>();
             string[] lines = text.Split('\r');
             for (int i = 0; i < lines.Length - 1; i++)
             {
-                char[] delimiters = { ':', '?','\v' };
+
+                char[] delimiters = { ':', '?', '\v' };
                 string[] fieldArray = lines[i].Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
                 cleanUpWhitespaceAndDelimiters(fieldArray);
                 switch (fieldArray[0])
                 {
                     case "Best Pizza Toppings":
-                        Field f1 = new Field("Best Pizza Toppings", fieldArray[2]);
+                        CustomField f1 = new CustomField("Best Pizza Toppings", fieldArray[2]);
                         list.Add(f1);
                         break;
                     case "What is your dream job and why":
-                        Field f2 = new Field("Dream Job", fieldArray[2]);
+                        CustomField f2 = new CustomField("Dream Job", fieldArray[2]);
                         list.Add(f2);
                         break;
                     case "Favorite Primary Color and Why":
-                        Field f3 = new Field("Favorite Primary Color",fieldArray[1]);
+                        CustomField f3 = new CustomField("Favorite Primary Color", fieldArray[1]);
                         break;
                     case "What type of vehicle do you drive":
-                        Field f4 = new Field("Vehicle", fieldArray[1]);
+                        CustomField f4 = new CustomField("Vehicle", fieldArray[1]);
                         break;
                     default:
-                        Field f5 = new Field(fieldArray[0], fieldArray[1]);
+                        CustomField f5 = new CustomField(fieldArray[0], fieldArray[1]);
                         list.Add(f5);
                         break;
                 }
             }
-
+            return list;
         }
-        private static string wordDocument2String(string file)
+        private static string getWordDocumentPropertyValue(Microsoft.Office.Interop.Word.Document document, string propertyName)
         {
-            NetOffice.WordApi.Application wordApplication = new NetOffice.WordApi.Application();
-            NetOffice.WordApi.Document newDocument = wordApplication.Documents.Open(file);
-            string txt = newDocument.Content.Text;
-            wordApplication.Quit();
-            wordApplication.Dispose();
-            return txt;
+            object builtInProperties = document.BuiltInDocumentProperties;
+            Type builtInPropertiesType = builtInProperties.GetType();
+            object property = builtInPropertiesType.InvokeMember("Item", System.Reflection.BindingFlags.GetProperty, null, builtInProperties, new object[] { propertyName });
+            Type propertyType = property.GetType();
+            object propertyValue = propertyType.InvokeMember("Value", System.Reflection.BindingFlags.GetProperty, null, property, new object[] { });
+            return propertyValue.ToString();
         }
         private static void cleanUpWhitespaceAndDelimiters(string[] s)
         {
@@ -104,15 +103,29 @@ namespace Word2XML_3
                 s[i] = (s[i].Replace(";", "")).Trim();
             }
         }
+    }
+    public static class EntrySerializer
+    {
+        public static void SerializeObject(this CustomEntry entry, string file)
+        {
+            var serializer = new XmlSerializer(typeof(CustomEntry));
+            using (var stream = File.OpenWrite(file))
+            {
+                serializer.Serialize(stream, entry);
+            }
+        }
+    }
+    class Program
+    {  
         static void Main(string[] args)
         {
-            List<Field> _fields = new List<Field>();
+            List<CustomField> _fields = new List<CustomField>();
             string localPath = Directory.GetCurrentDirectory();
             string wordFile = localPath + @"\" + args[0];
             string xmlFile = localPath + @"\" + args[1];
             //extractTextFile(_fields, wordFile);
-            extractWordFile(_fields, wordFile);
-            outputXMLFile(_fields, xmlFile);
+            CustomEntry entry = new CustomEntry(wordFile);
+            EntrySerializer.SerializeObject(entry,xmlFile);
         }
     }
 }
