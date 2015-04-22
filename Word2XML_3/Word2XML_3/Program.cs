@@ -33,7 +33,7 @@ namespace Word2XML_3
         public string Title;
         [XmlAttribute("Trial")]
         public string Trial;
-        [XmlAttribute("Responses")]
+        [XmlElement("Responses")]
         public List<CustomField> Responses;
         public CustomEntry() { }
         public CustomEntry(string file)

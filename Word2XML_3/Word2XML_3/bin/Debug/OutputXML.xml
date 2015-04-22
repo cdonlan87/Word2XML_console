@@ -1,15 +1,14 @@
 <?xml version="1.0"?>
-<ArrayOfField xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Field FieldID="Name" FieldValue="Chris Donlan" />
-  <Field FieldID="Age" FieldValue="20-29" />
-  <Field FieldID="Date of Birth" FieldValue="4/20/2015" />
-  <Field FieldID="Sex" FieldValue="Male  ☐ Female  ☐" />
-  <Field FieldID="Zip Code" FieldValue="30305" />
-  <Field FieldID="Phone Number" FieldValue="555-555-5555" />
-  <Field FieldID="Best PizzaToppings" FieldValue="Pepperoni ☐Cheese ☐Jalapenos ☐Mushrooms ☐Sausage ☐Chicken  Beef" />
-  <Field FieldID="Dream Job" FieldValue="Computer Programming." />
-</ArrayOfField>D="What type of vehicle do you drive" FieldValue="Mazda 6" />
-</ArrayOfField>u drive" FieldValue="Mazda 6" />
+<Entry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Author="John Smith" Title="Demographics Form FRM0001" Trial="Trial 123">
+  <Responses FieldID="Name" FieldValue="Chris Donlan" />
+  <Responses FieldID="Age" FieldValue="20-29" />
+  <Responses FieldID="Date of Birth" FieldValue="4/20/2015" />
+  <Responses FieldID="Sex" FieldValue="Male  ☐ Female  ☐" />
+  <Responses FieldID="Zip Code" FieldValue="30305" />
+  <Responses FieldID="Phone Number" FieldValue="555-555-5555" />
+  <Responses FieldID="Best Pizza Toppings" FieldValue="Pepperoni ☐Cheese ☐Jalapenos ☐Mushrooms ☐Sausage ☐Chicken  Beef" />
+  <Responses FieldID="Dream Job" FieldValue="Computer Programming." />
+</Entry>dValue="Mazda 6" />
 </ArrayOfField>" />
   <Field FieldID="What type of vehicle do you drive" FieldValue="Mazda 6" />
 </ArrayOfField>
