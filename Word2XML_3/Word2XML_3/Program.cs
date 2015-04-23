@@ -6,10 +6,27 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Serialization;
 using Microsoft.Office.Interop;
-using NetOffice.WordApi;
 
 namespace Word2XML_3
 {
+    public class MyTupleXML<T1, T2>
+    {
+        MyTupleXML() { }
+        public T1 Item1 { get; set; }
+        public T2 Item2 { get; set; }
+        public static implicit operator MyTupleXML<T1, T2>(Tuple<T1, T2> t)
+        {
+            return new MyTupleXML<T1, T2>()
+            {
+                Item1 = t.Item1,
+                Item2 = t.Item2
+            };
+        }
+        public static implicit operator Tuple<T1, T2>(MyTupleXML<T1, T2> t)
+        {
+            return Tuple.Create(t.Item1, t.Item2);
+        }
+    }
     [XmlType("Field")]
     public class CustomField
     {
@@ -33,8 +50,28 @@ namespace Word2XML_3
         public string Title;
         [XmlAttribute("Trial")]
         public string Trial;
-        [XmlElement("Responses")]
-        public List<CustomField> Responses;
+       // [XmlElement("Responses")]
+       // public List<CustomField> Responses;
+        [XmlElement("Name")]
+        public string Name;
+        [XmlElement("Age Bracket")]
+        public MyTupleXML<int, int> AgeBracket;
+        [XmlElement("Date of Birth")]
+        public DateTime DateOfBirth;
+        [XmlElement("Sex")]
+        public string Sex;
+        [XmlElement("ZipCode")]
+        public int ZipCode;
+        [XmlElement("Phone Number")]
+        public string TenDigitPhoneNumber;
+        [XmlElement("Favorite Primary Color")]
+        public string FavoritePrimaryColor;
+        [XmlElement("Best Pizza Toppings")]
+        public List<string> BestPizzaToppings;
+        [XmlElement("Dream Job")]
+        public string DreamJob;
+        [XmlElement("Vehicle")]
+        public string Vehicle;
         public CustomEntry() { }
         public CustomEntry(string file)
         {
@@ -43,15 +80,96 @@ namespace Word2XML_3
             this.Author = getWordDocumentPropertyValue(doc, "Author");
             this.Title = getWordDocumentPropertyValue(doc, "Title");
             this.Trial = getWordDocumentPropertyValue(doc, "Subject");
-            this.Responses = ExtractResponses(doc.Content.Text);
+            //this.Responses = ExtractResponses(doc.Content.Text);
+            Person p = ExtractResponses2(doc);
+            this.Name = p.Name;
+            this.AgeBracket = p.AgeBracket;
+            this.DateOfBirth = p.DateOfBirth;
+            this.Sex = p.Sex;
+            this.ZipCode = p.ZipCode;
+            this.TenDigitPhoneNumber = p.TenDigitPhoneNumber;
+            this.FavoritePrimaryColor = p.FavoritePrimaryColor;
+            this.BestPizzaToppings = p.BestPizzaToppings;
+            this.DreamJob = p.DreamJob;
+            this.Vehicle = p.Vehicle;
             word.Quit();
         }
-        public CustomEntry(string author, string title, string trial, List<CustomField> responses)
+        private static List<Microsoft.Office.Interop.Word.ContentControl> GetAllContentControls(Microsoft.Office.Interop.Word.Document doc)
         {
-            this.Author = author;
-            this.Title = title;
-            this.Trial = trial;
-            this.Responses = responses;
+            List<Microsoft.Office.Interop.Word.ContentControl> contentControlList = new List<Microsoft.Office.Interop.Word.ContentControl>();
+            Microsoft.Office.Interop.Word.Range rangeStory;
+            foreach (Microsoft.Office.Interop.Word.Range range in doc.StoryRanges)
+            {
+                rangeStory = range;
+                do
+                {
+                    try
+                    {
+                        foreach (Microsoft.Office.Interop.Word.ContentControl cc in rangeStory.ContentControls)
+                        {
+                            contentControlList.Add(cc);
+                        }
+                        foreach (Microsoft.Office.Interop.Word.Shape shapeRange in rangeStory.ShapeRange)
+                        {
+                            foreach (Microsoft.Office.Interop.Word.ContentControl cc in shapeRange.TextFrame.TextRange.ContentControls)
+                            {
+                                contentControlList.Add(cc);
+                            }
+                        }
+                    }
+                    catch { }
+                    rangeStory = rangeStory.NextStoryRange;
+                }
+                while (rangeStory != null);
+            }
+            return contentControlList;
+        }
+        private static Person ExtractResponses2(Microsoft.Office.Interop.Word.Document doc)
+        {
+            List<Microsoft.Office.Interop.Word.ContentControl> ccList = GetAllContentControls(doc);
+                // Name
+            string name = ccList[0].Range.Text;
+                // Age
+            string ageRange1 = ccList[1].Range.Text;
+            string[] ageRange2 = ageRange1.Split('-');
+            int lower = int.Parse(ageRange2[0]);
+            int upper = int.Parse(ageRange2[1]);
+            MyTupleXML<int, int> ageRange = new Tuple<int, int>(lower, upper);
+                // Date of Birth
+            DateTime dateOfBirth = DateTime.Parse(ccList[2].Range.Text);
+                // Sex
+            string sex;
+            //if (ccList[4].Checked) { sex = "Female"; }
+            //else { sex = "Male"; }
+            sex = "Male";
+                // ZipCode
+            int zipCode = int.Parse(ccList[5].Range.Text);
+                // Phone Number
+            string phoneNumber = ccList[6].Range.Text;
+            // Favorite Primary Color
+            string favoritePrimaryColor = ccList[7].Range.Text;
+            // Pizza Toppings
+            List<string> pizzaToppings = new List<string>();
+            //if (ccList[8].Checked) 
+                pizzaToppings.Add("Pepperoni");
+            //if (ccList[9].Checked) 
+                pizzaToppings.Add("Cheese");
+            //if (ccList[10].Checked) 
+                pizzaToppings.Add("Jalapenos");
+            //if (ccList[11].Checked)
+                pizzaToppings.Add("Mushrooms");
+            //if (ccList[12].Checked) 
+                pizzaToppings.Add("Sausage");
+            //if (ccList[13].Checked) 
+                pizzaToppings.Add("Chicken");
+            // if (ccList[14].Checked) { pizzaToppings.Add("Beef"); }
+            // Dream Job
+            string dreamJob = ccList[14].Range.Text;
+            // Vehicle
+            string vehicle = ccList[15].Range.Text;
+            Person p = new Person(name, ageRange,dateOfBirth,sex,zipCode,phoneNumber,favoritePrimaryColor, 
+                pizzaToppings,dreamJob,vehicle);
+            return p;
         }
         private static List<CustomField> ExtractResponses(string text)
         {

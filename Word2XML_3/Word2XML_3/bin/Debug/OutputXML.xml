@@ -1,14 +1,27 @@
 <?xml version="1.0"?>
 <Entry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Author="John Smith" Title="Demographics Form FRM0001" Trial="Trial 123">
-  <Responses FieldID="Name" FieldValue="Chris Donlan" />
-  <Responses FieldID="Age" FieldValue="20-29" />
-  <Responses FieldID="Date of Birth" FieldValue="4/20/2015" />
-  <Responses FieldID="Sex" FieldValue="Male  ☐ Female  ☐" />
-  <Responses FieldID="Zip Code" FieldValue="30305" />
-  <Responses FieldID="Phone Number" FieldValue="555-555-5555" />
-  <Responses FieldID="Best Pizza Toppings" FieldValue="Pepperoni ☐Cheese ☐Jalapenos ☐Mushrooms ☐Sausage ☐Chicken  Beef" />
-  <Responses FieldID="Dream Job" FieldValue="Computer Programming." />
-</Entry>dValue="Mazda 6" />
-</ArrayOfField>" />
-  <Field FieldID="What type of vehicle do you drive" FieldValue="Mazda 6" />
-</ArrayOfField>
+  <Name>Chris Donlan</Name>
+  <Age_x0020_Bracket>
+    <Item1>20</Item1>
+    <Item2>29</Item2>
+  </Age_x0020_Bracket>
+  <Date_x0020_of_x0020_Birth>2015-04-20T00:00:00</Date_x0020_of_x0020_Birth>
+  <Sex>Male</Sex>
+  <ZipCode>30305</ZipCode>
+  <Phone_x0020_Number>555-555-5555</Phone_x0020_Number>
+  <Favorite_x0020_Primary_x0020_Color>Blue because the sky is blue</Favorite_x0020_Primary_x0020_Color>
+  <Best_x0020_Pizza_x0020_Toppings>Pepperoni</Best_x0020_Pizza_x0020_Toppings>
+  <Best_x0020_Pizza_x0020_Toppings>Cheese</Best_x0020_Pizza_x0020_Toppings>
+  <Best_x0020_Pizza_x0020_Toppings>Jalapenos</Best_x0020_Pizza_x0020_Toppings>
+  <Best_x0020_Pizza_x0020_Toppings>Mushrooms</Best_x0020_Pizza_x0020_Toppings>
+  <Best_x0020_Pizza_x0020_Toppings>Sausage</Best_x0020_Pizza_x0020_Toppings>
+  <Best_x0020_Pizza_x0020_Toppings>Chicken</Best_x0020_Pizza_x0020_Toppings>
+  <Dream_x0020_Job>Computer Programming. </Dream_x0020_Job>
+  <Vehicle>Mazda 6</Vehicle>
+</Entry>Toppings>
+  <Best_x0020_Pizza_x0020_Toppings>Cheese</Best_x0020_Pizza_x0020_Toppings>
+  <Best_x0020_Pizza_x0020_Toppings>Jalapenos</Best_x0020_Pizza_x0020_Toppings>
+  <Best_x0020_Pizza_x0020_Toppings>Mushrooms</Best_x0020_Pizza_x0020_Toppings>
+  <Best_x0020_Pizza_x0020_Toppings>Sausage</Best_x0020_Pizza_x0020_Toppings>
+  <Best_x0020_Pizza_x0020_Toppings>Chicken</Best_x0020_Pizza_x0020_Toppings>
+</Entry>
