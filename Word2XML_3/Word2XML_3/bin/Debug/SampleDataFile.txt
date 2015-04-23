@@ -1,5 +1,0 @@
-Name = Harry Fields;
-Blood Type = O;
-Blood Pressure = 120 / 70;
-Heart Rate = 70;
-Temperature = 98.2 degrees Fahrenheit;

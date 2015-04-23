@@ -1,14 +1,19 @@
 <?xml version="1.0"?>
 <Entry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Author="John Smith" Title="Demographics Form FRM0001" Trial="Trial 123">
-  <Responses FieldID="Name" FieldValue="Chris Donlan" />
-  <Responses FieldID="Age" FieldValue="20-29" />
-  <Responses FieldID="Date of Birth" FieldValue="4/20/2015" />
-  <Responses FieldID="Sex" FieldValue="Male  ☐ Female  ☐" />
-  <Responses FieldID="Zip Code" FieldValue="30305" />
-  <Responses FieldID="Phone Number" FieldValue="555-555-5555" />
-  <Responses FieldID="Best Pizza Toppings" FieldValue="Pepperoni ☐Cheese ☐Jalapenos ☐Mushrooms ☐Sausage ☐Chicken  Beef" />
-  <Responses FieldID="Dream Job" FieldValue="Computer Programming." />
-</Entry>dValue="Mazda 6" />
-</ArrayOfField>" />
-  <Field FieldID="What type of vehicle do you drive" FieldValue="Mazda 6" />
-</ArrayOfField>
+  <Name>Chris Donlan</Name>
+  <AgeBracket>
+    <Item1>20</Item1>
+    <Item2>29</Item2>
+  </AgeBracket>
+  <DateOfBirth>2015-04-20T00:00:00</DateOfBirth>
+  <Sex>Male</Sex>
+  <ZipCode>30305</ZipCode>
+  <PhoneNumber>555-555-5555</PhoneNumber>
+  <FavoritePrimaryColor>Blue because the sky is blue</FavoritePrimaryColor>
+  <BestPizzaToppings>Pepperoni</BestPizzaToppings>
+  <BestPizzaToppings>Cheese</BestPizzaToppings>
+  <BestPizzaToppings>Jalapenos</BestPizzaToppings>
+  <BestPizzaToppings>Sausage</BestPizzaToppings>
+  <DreamJob>Computer Programming. </DreamJob>
+  <Vehicle>Mazda 6</Vehicle>
+</Entry>
