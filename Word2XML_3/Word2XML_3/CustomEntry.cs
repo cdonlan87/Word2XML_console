@@ -21,21 +21,21 @@ namespace Word2XML_3
         // public List<CustomField> Responses;
         [XmlElement("Name")]
         public string Name;
-        [XmlElement("Age Bracket")]
+        [XmlElement("AgeBracket")]
         public MyTupleXML<int, int> AgeBracket;
-        [XmlElement("Date of Birth")]
+        [XmlElement("DateOfBirth")]
         public DateTime DateOfBirth;
         [XmlElement("Sex")]
         public string Sex;
         [XmlElement("ZipCode")]
         public int ZipCode;
-        [XmlElement("Phone Number")]
+        [XmlElement("PhoneNumber")]
         public string TenDigitPhoneNumber;
-        [XmlElement("Favorite Primary Color")]
+        [XmlElement("FavoritePrimaryColor")]
         public string FavoritePrimaryColor;
-        [XmlElement("Best Pizza Toppings")]
+        [XmlElement("BestPizzaToppings")]
         public List<string> BestPizzaToppings;
-        [XmlElement("Dream Job")]
+        [XmlElement("DreamJob")]
         public string DreamJob;
         [XmlElement("Vehicle")]
         public string Vehicle;
