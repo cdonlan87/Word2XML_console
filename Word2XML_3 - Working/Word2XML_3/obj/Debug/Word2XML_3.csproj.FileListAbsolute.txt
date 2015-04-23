@@ -1,0 +1,14 @@
+c:\users\pam\documents\visual studio 2013\Projects\Word2XML_3\Word2XML_3\bin\Debug\Word2XML_3.exe.config
+c:\users\pam\documents\visual studio 2013\Projects\Word2XML_3\Word2XML_3\bin\Debug\Word2XML_3.exe
+c:\users\pam\documents\visual studio 2013\Projects\Word2XML_3\Word2XML_3\bin\Debug\Word2XML_3.pdb
+c:\users\pam\documents\visual studio 2013\Projects\Word2XML_3\Word2XML_3\obj\Debug\Word2XML_3.csprojResolveAssemblyReference.cache
+c:\users\pam\documents\visual studio 2013\Projects\Word2XML_3\Word2XML_3\obj\Debug\Word2XML_3.exe
+c:\users\pam\documents\visual studio 2013\Projects\Word2XML_3\Word2XML_3\obj\Debug\Word2XML_3.pdb
+c:\users\pam\documents\visual studio 2013\Projects\Word2XML_3\Word2XML_3\bin\Debug\NetOffice.dll
+c:\users\pam\documents\visual studio 2013\Projects\Word2XML_3\Word2XML_3\bin\Debug\OfficeApi.dll
+c:\users\pam\documents\visual studio 2013\Projects\Word2XML_3\Word2XML_3\bin\Debug\VBIDEApi.dll
+c:\users\pam\documents\visual studio 2013\Projects\Word2XML_3\Word2XML_3\bin\Debug\WordApi.dll
+c:\users\pam\documents\visual studio 2013\Projects\Word2XML_3\Word2XML_3\bin\Debug\NetOffice.xml
+c:\users\pam\documents\visual studio 2013\Projects\Word2XML_3\Word2XML_3\bin\Debug\OfficeApi.xml
+c:\users\pam\documents\visual studio 2013\Projects\Word2XML_3\Word2XML_3\bin\Debug\VBIDEApi.xml
+c:\users\pam\documents\visual studio 2013\Projects\Word2XML_3\Word2XML_3\bin\Debug\WordApi.xml
